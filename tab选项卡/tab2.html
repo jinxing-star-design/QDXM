@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tab选项卡</title>
+</head>
+<style>
+    .container {
+        max-width: 50px auto;
+        margin: 30px ;
+        padding: 30px;
+        border-radius: 4px;
+        box-shadow: 0 0 4px 0px rgba(0,0,0,0.3);
+    }
+
+    .tabs .tab-header  {
+        position: relative;
+        display: flex;
+        font-size: 13px;
+        color: #303030;
+        line-height: 30px;
+        font-weight: 500;
+        border-bottom: 1px solid #dddddd;
+    }
+
+    .tabs .tab-items {
+        margin-right: 30px;
+        cursor: pointer;
+   
+    }
+
+    .tabs .tab-header .active {
+        color: #409eff;;
+    }
+
+    .tabs .tab-panel {
+        padding: 16px 0;
+        font-size: 14px;
+        display: none;
+
+    }
+
+    .tabs .tab-content .active {
+        display: block;
+    }
+
+    .tabs .line {
+        position:absolute;
+        top: 100%;
+        transform: translate(0);
+        width: 50px;
+        height: 2px;
+        background: #409eff;
+        transition: all .3s;
+
+    }
+
+</style>
+<body>
+    <div class="container">
+        <h2>Tab选项卡</h2>
+        <div class="tabs">
+            <div class="tab-header">
+                <span class="tab-items active" >用户管理</span>
+                <span class="tab-items">配置管理</span>
+                <span class="tab-items">角色管理</span>
+                <span class="tab-items">定时任务补偿</span>
+                <span class='line'></span>
+            </div>
+            <div class="tab-content">
+                <div class="tab-panel active">用户管理</div>
+                <div class="tab-panel">配置管理</div>
+                <div class="tab-panel">角色管理</div>
+                <div class="tab-panel">定时任务补偿</div>
+            </div>
+        </div>
+    </div>
+<script>
+    const $ = s => document.querySelector(s)
+    const $$ = s => document.querySelectorAll(s)
+
+    const $$tabItems = $$('.tabs .tab-items')
+    const $$tabPanels = $$('.tabs .tab-panel')
+    const $line = $('.tabs .line')
+
+    $line.style.width = $$tabItems[0].offsetWidth + "px"
+
+    $$tabItems.forEach($tab => {
+        $tab.onclick = function() {
+            $$tabItems.forEach($tab => $tab.classList.remove('active'))
+            this.classList.add('active')
+
+            console.log(this.offsetWidth)
+            console.log(this.offsetLeft)
+            $line.style.width = this.offsetWidth + 'px'
+            $line.style.transform = `translateX(${this.offsetLeft}px)`
+
+
+            let index = [...$$tabItems].indexOf(this)
+            $$tabPanels.forEach($panel => $panel.classList.remove('active'))
+            $$tabPanels[index].classList.add('active')
+        }
+
+    })
+</script>
+</body>
+</html>
