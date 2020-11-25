@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>折叠面板</title>
+</head>
+<style>
+    .container {
+        max-width: 800px;
+        margin: 30px auto;
+        border-radius: 4px;
+        box-shadow: 0 0 4px 0px rgba(0, 0, 0, 0.3);
+        padding: 16px;
+    }
+
+    .collapse {
+        font-size: 13px;
+    }
+
+    .collapse .items {
+        border-top: 1px solid #ddd;
+        cursor: pointer;
+    }
+
+    .collapse .items:last-child {
+        border-bottom:  1px solid #ddd;
+    }
+
+    .collapse .item-header {
+        display: flex;
+        align-items: center;
+        color: #303030;
+        font-size: 500;
+        line-height: 40px;
+      
+    }
+
+    .collapse .item-header:after {
+        content:'';
+        display: block;
+        width: 6px;
+        height: 6px;
+        border-top: 1px solid #303030;
+        border-right: 1px solid #303030;
+        margin-left: auto;
+        transform: rotate(45deg);
+    }
+
+    .collapse .items.active .item-header:after {
+        transform: rotate(135deg);
+        transition: all .3s;
+    }
+
+
+    .collapse .item-content {
+        font-size: 14px;
+        color: #666;
+        /* padding-bottom: 16px; */
+        height: 0;
+        overflow: hidden;
+        transition: all .3s;
+    }
+
+    .collapse .items.active .item-content {
+        height: auto;
+        padding-bottom: 16px;
+    }
+
+
+</style>
+<body>
+    <div class="container">
+        <h2>Collapse折叠面板</h2>
+        <div class='collapse'>
+            <div class="items">
+                <div class="item-header">一致性</div>
+                <div class="item-content">与现实生活中一致，与现实生活的流程，逻辑保持一致<br>
+                所有的元素和结构属性保持一致，比如设计样式、图标和文本、元素的位置等</div>
+            </div>
+            <div class="items active">
+                <div class="item-header">反馈</div>
+                <div class="item-content">与现实生活中一致，与现实生活的流程，逻辑保持一致<br>
+                所有的元素和结构属性保持一致，比如设计样式、图标和文本、元素的位置等</div>
+            </div>
+            <div class="items">
+                <div class="item-header">效率</div>
+                <div class="item-content">与现实生活中一致，与现实生活的流程，逻辑保持一致<br>
+                所有的元素和结构属性保持一致，比如设计样式、图标和文本、元素的位置等</div>
+            </div>
+            <div class="items">
+                <div class="item-header">可控性</div>
+                <div class="item-content">与现实生活中一致，与现实生活的流程，逻辑保持一致<br>
+                所有的元素和结构属性保持一致，比如设计样式、图标和文本、元素的位置等</div>
+            </div>
+
+            
+        </div>
+    </div>
+
+   
+</body>
+
+<script>
+    // const $ = s => document.querySelector(s)
+    // const $$ = s => document.querySelectorAll(s)
+
+    class Collapse {
+        constructor($container) {
+            this.$container = $container
+            this.$$items = $container.querySelectorAll('.items')
+            this.bind()
+            
+        }
+        bind() {
+            let self = this
+            this.$$items.forEach($item => {
+                $item.onclick = function() {
+                    self.$$items.forEach($item => $item.classList.remove('active'))
+                    this.classList.add('active')
+                }
+            })
+        }
+    }
+
+new Collapse(document.querySelector('.collapse'))
+
+</script>
+</html>
