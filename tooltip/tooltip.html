@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tooltip</title>
+</head>
+<style>
+    .container {
+        max-width: 800px;
+        margin: 30px auto;
+        border-radius: 4px;
+        box-shadow: 0 0 4px 0px rgba(0, 0, 0, 0.3);
+        padding: 16px;
+    }
+</style>
+
+<body>
+    <div class='container'>
+        <h2>Tooltip</h2>
+        <div class="botton-group">
+            <button class="botton" data-name="tooltip" data-align="top" data-text="我是内容">上</button>
+            <button class="botton" data-name="tooltip" data-align="top" data-text="我是内容">下</button>
+            <button class="botton">左</button>
+            <button class="botton">右</button>
+        </div>
+    </div>
+
+<script>
+    class Tooltip {
+        constructor($root) {
+            this.$root = $root
+            this.$root.tooltip = this
+            this.render()
+            this.show()
+        }
+
+        render() {
+            let $tooltip = document.createElement('div')
+            $tooltip.classList.add('tooltip')
+        }
+
+        show() {
+
+        }   
+    }
+
+    document.querySelectorAll('[data-name=tooltip]').forEach($node =>
+    {
+        $node.onmousernter = function() {
+            if($node.tooltip) {
+                $node.showTooltip()
+            }else {
+                new Tooltip(this)
+            }
+        }
+    })
+</script>
+</body>
+
+</html>

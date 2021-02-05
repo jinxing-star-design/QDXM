@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let url = "www.baidu.com"
+        let wrc = new XMLHttpRequest()
+        wrc.open('GET',url,true)
+        wrc.onreadystatechange = function() {
+            if(wrc.readyState === 4){
+                if((wrc.status >= 200 && wrc.status < 300) || wrc.status === 304){
+                console.log(JSON.parse(wrc.responseText));
+            }else {
+                console.log("服务器异常");
+                  }
+            }
+        }
+        wrc.onerror = function() {
+            console.log("服务器异常");
+        }
+        wrc.send()
+    </script>
+</body>
+</html>
